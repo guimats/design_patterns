@@ -14,15 +14,15 @@ class StringReprMixin:
         return self.__str__()
 
 
-class MonoStateSimple(StringReprMixin):
-    _state = {
-        'x': 10,
-        'y': 20
-    }
+class MonoState(StringReprMixin):
+    _state: dict = {}
+
+    def __new__(cls, *args, **kwargs):
+        obj = super().__new__(cls)
+        obj.__dict__ = cls._state
+        return obj
 
     def __init__(self, nome=None, sobrenome=None) -> None:
-        self.__dict__ = self._state
-
         if nome is not None:
             self.nome = nome
 
@@ -30,8 +30,12 @@ class MonoStateSimple(StringReprMixin):
             self.sobrenome = sobrenome
 
 
+class A(MonoState):
+    pass
+
+
 if __name__ == '__main__':
-    m1 = MonoStateSimple('Luiz')
-    m2 = MonoStateSimple(sobrenome='Logo')
+    m1 = MonoState('Luiz')
+    m2 = A(sobrenome='Logo')
     print(m1)
     print(m2)
