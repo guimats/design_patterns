@@ -36,6 +36,7 @@ if __name__ == '__main__':
 
     as2 = AppSettings()
     print(as1.tema)
+    print(as2.tema)
 
     t1 = Teste()
     t2 = Teste()
